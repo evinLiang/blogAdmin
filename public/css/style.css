@@ -1,0 +1,18 @@
+html,body {
+	width: 100%;
+	height: 100%;
+	background: #eee;
+}
+body {
+	padding:3.5% 7%;
+	box-sizing: border-box;
+}
+.page-area {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	box-shadow:0px 0px 10px rgba(244,244,244,0.5);
+	border-radius: 5px;
+	overflow: auto;
+}
+.pd20 { padding: 20px; }
