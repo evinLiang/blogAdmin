@@ -16,3 +16,32 @@ body {
 	overflow: auto;
 }
 .pd20 { padding: 20px; }
+
+.page-area .breadcrumb {
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #f5f5f5;
+}
+
+.nav-panel {
+	text-align: center;
+	color: #fff;
+	background: #eee;
+	display: block;
+	border-radius: 4px;
+	padding: 40px 0px;
+	font-size: 16px;
+}
+.nav-panel:hover { color: #fff; }
+
+.is-primary { background: #00d1b2;  }
+.is-info { background: #209cee; }
+
+.login {
+	max-width: 400px;
+	margin: 10% auto;
+}
+
+.login .title {
+	text-align: center;
+}
