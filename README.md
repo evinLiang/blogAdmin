@@ -15,5 +15,5 @@ cd blogAdmin
 npm install
 
 # 运行
-npm start => `http://localhost:9000`
+npm start => `http://localhost:3000`
 ```
