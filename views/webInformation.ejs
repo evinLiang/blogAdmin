@@ -2,32 +2,39 @@
 	<div class="page-area">
 	<% include ./nav %>
 	<div class="pd20">
-		<% include ./breadcrumb %>
-		<form action="/webInformation" method="post">
-			<div class="field">
-			  <label class="label">网站名称</label>
-			  <div class="control">
-			    <input class="input" name="siteName" type="text" placeholder="网站名称" value="<%= siteInfo.siteName %>" >
-			  </div>
-			</div>
-			<div class="field">
-			  <label class="label">备案信息</label>
-			  <div class="control">
-			    <input class="input" name="siteIcp" type="text" placeholder="备案信息" value="<%= siteInfo.siteIcp %>" >
-			  </div>
-			</div>
-			<div class="field">
-			  <label class="label">版权信息</label>
-			  <div class="control">
-			    <textarea class="textarea" name="siteCopy" placeholder="版权信息"><%= siteInfo.siteCopy %></textarea>
-			  </div>
-			</div>
-			<div class="field is-grouped">
-			  <div class="control">
-			    <button type="submit" class="button is-primary">保存</button>
-			  </div>
-			</div>
-		</form>
+		<div class="columns">
+		  <div class="column column is-2">
+		  	<% include ./sideMenu %>	
+		  </div>
+		  <div class="column column is-10">
+			<% include ./breadcrumb %>
+			<form action="/webInformation" method="post">
+				<div class="field">
+				  <label class="label">网站名称</label>
+				  <div class="control">
+				    <input class="input" name="siteName" type="text" placeholder="网站名称" value="<%= siteInfo.siteName %>" >
+				  </div>
+				</div>
+				<div class="field">
+				  <label class="label">备案信息</label>
+				  <div class="control">
+				    <input class="input" name="siteIcp" type="text" placeholder="备案信息" value="<%= siteInfo.siteIcp %>" >
+				  </div>
+				</div>
+				<div class="field">
+				  <label class="label">版权信息</label>
+				  <div class="control">
+				    <textarea class="textarea" name="siteCopy" placeholder="版权信息"><%= siteInfo.siteCopy %></textarea>
+				  </div>
+				</div>
+				<div class="field is-grouped">
+				  <div class="control">
+				    <button type="submit" class="button is-primary">保存</button>
+				  </div>
+				</div>
+			</form>
+		  </div>
+		</div>	
 	</div>
 	</div>
 <% include ./footer %>

@@ -4,7 +4,7 @@ html,body {
 	background: #eee;
 }
 body {
-	padding:3.5% 7%;
+	padding:5% 15%;
 	box-sizing: border-box;
 }
 .page-area {
@@ -16,6 +16,8 @@ body {
 	overflow: auto;
 }
 .pd20 { padding: 20px; }
+.w100 { width: 100%; }
+.ml-5 { margin-left: 5px; }
 
 .page-area .breadcrumb {
 	margin-bottom: 20px;
@@ -24,24 +26,35 @@ body {
 }
 
 .nav-panel {
-	text-align: center;
+	text-align: left;
 	color: #fff;
 	background: #eee;
 	display: block;
 	border-radius: 4px;
-	padding: 40px 0px;
-	font-size: 16px;
+	padding: 10px 0px 10px 20px;
+	font-size: 14px;
+	margin-bottom: 10px;
 }
 .nav-panel:hover { color: #fff; }
 
 .is-primary { background: #00d1b2;  }
 .is-info { background: #209cee; }
+.is-danger { background: #ff3860; }
+.is-link { background: #3273dc; }
+.is-success { background: #23d160; }
+.is-warning { background: #ffdd57; color: rgba(0,0,0,0.7); }
 
 .login {
-	max-width: 400px;
+	max-width: 300px;
 	margin: 10% auto;
 }
 
 .login .title {
 	text-align: center;
+}
+
+@media screen and (max-width: 1120px) {
+    body {
+        padding:20px;
+    }
 }

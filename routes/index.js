@@ -14,7 +14,7 @@ router.get('/login', function(req, res, next) {
 
 //列表页
 router.get('/list', function(req, res, next) {
-  res.render('list', { title: '列表' });
+  res.render('list', { title: '文章列表' });
 });
 
 //站点信息页 get

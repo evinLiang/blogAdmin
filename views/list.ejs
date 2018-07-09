@@ -2,7 +2,51 @@
 	<div class="page-area">
 	<% include ./nav %>
 	<div class="pd20">
-		<% include ./breadcrumb %>
+		<div class="columns">
+		  <div class="column column is-2">
+		  	<% include ./sideMenu %>	
+		  </div>
+		  <div class="column column is-10">
+			<% include ./breadcrumb %>
+			<div class="buttons">
+			<a class="button is-primary">添加文章</a>
+			<a class="button is-info">添加分类</a>
+			</div>
+			<table class="table is-hoverable is-fullwidth">
+				<thead>
+					<tr>
+						<th width="50">ID</th>
+						<th>文章标题</th>
+						<th>文章分类</th>
+						<th>发布时间</th>
+						<th width="100">点击量</th>
+						<th width="100">作者</th>
+						<th width="150">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>aaaa</td>
+						<td>文章分类</td>
+						<td>2018-7-9</td>
+						<td>20</td>
+						<td>admin</td>
+						<td><a class="button is-small is-primary">编辑</a> <a class="button is-small is-danger">删除</a></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>bbbbbbb</td>
+						<td>文章分类</td>
+						<td>2018-7-9</td>
+						<td>50</td>
+						<td>admin</td>
+						<td><a class="button is-small is-primary">编辑</a> <a class="button is-small is-danger">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		  </div>
+		</div>
 	</div>
 	</div>
 <% include ./footer %>

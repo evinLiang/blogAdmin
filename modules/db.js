@@ -5,7 +5,7 @@ const databaseConfig = {
 	connectionLimit : 50,
 	host:'bdm115856385.my3w.com',
 	user:'bdm115856385',
-	password:'',
+	password:'evin2017',
 	database:'bdm115856385_db',
 	port:3306
 };
