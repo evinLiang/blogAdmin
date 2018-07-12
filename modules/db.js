@@ -1,14 +1,8 @@
 const mysql = require('mysql');		//引入mysql模块
 
 //数据库信息
-const databaseConfig = {
-	connectionLimit : 50,
-	host:'bdm115856385.my3w.com',
-	user:'bdm115856385',
-	password:'',
-	database:'bdm115856385_db',
-	port:3306
-};
+const databaseConfig = require('./databaseConfig');
+
 module.exports = {
 
 	//查询所有数据,并且返回数据
