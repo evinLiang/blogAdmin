@@ -31,7 +31,16 @@ router.get('/webInformation', function(req, res, next) {
 
 //站点信息页 post
 router.post('/webInformation', function(req, res, next) {
-  res.send(req.body);
+  var modSql = 'UPDATE blogInfo SET siteName = ?,siteIcp = ?,siteCopy = ? WHERE Id = ?',
+  modSqlParams = [req.body.siteName, req.body.siteIcp,req.body.siteCopy,1];
+  db.update(modSql,modSqlParams,function(req){
+    var req = req;
+    if(req==1){
+     res.send(200); 
+    }   
+  },function(req){
+    res.send(req);
+  })
 });
 
 module.exports = router;

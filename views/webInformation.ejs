@@ -8,7 +8,6 @@
 		  </div>
 		  <div class="column column is-10">
 			<% include ./breadcrumb %>
-			<form action="/webInformation" method="post">
 				<div class="field">
 				  <label class="label">网站名称</label>
 				  <div class="control">
@@ -29,14 +28,37 @@
 				</div>
 				<div class="field is-grouped">
 				  <div class="control">
-				    <button type="submit" class="button is-primary">保存</button>
+				    <button id="saveBtn" class="button is-primary">保存</button>
 				  </div>
 				</div>
-			</form>
 		  </div>
 		</div>	
 	</div>
 	</div>
+	<script>
+		$("#saveBtn").click(function(event) {
+			var Params = {
+				siteName: $("input[name^='siteName']").val(),
+				siteIcp: $("input[name^='siteIcp']").val(),
+				siteCopy: $("textarea[name^='siteCopy']").val()
+			};
+			$.ajax({
+				url: '/webInformation',
+				type: 'POST',
+				data: Params
+			})
+			.done(function(res) {
+				//res:200 为OK
+				if(res == "OK"){
+					console.log("更新成功");
+				}
+			})
+			.fail(function(res) {
+				console.log(res);
+			})
+			
+		});
+	</script>
 <% include ./footer %>
 
 
