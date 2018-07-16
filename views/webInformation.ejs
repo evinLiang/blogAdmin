@@ -37,6 +37,11 @@
 	</div>
 	<script>
 		$("#saveBtn").click(function(event) {
+			//显示sLoadingToast
+            $.lDialog.sLoadingToast({
+                title: '加载',
+                theme:'default'
+            });
 			var Params = {
 				siteName: $("input[name^='siteName']").val(),
 				siteIcp: $("input[name^='siteIcp']").val(),
@@ -50,7 +55,12 @@
 			.done(function(res) {
 				//res:200 为OK
 				if(res == "OK"){
-					console.log("更新成功");
+					$.lDialog.hLoadingToast() //关闭sLoadingToast
+					//显示iconTiast，类型有：success,error
+		            $.lDialog.iconToast({
+		                title: '更新成功',
+		                duration: 2000
+		            })
 				}
 			})
 			.fail(function(res) {

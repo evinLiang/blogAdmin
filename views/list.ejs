@@ -1,4 +1,49 @@
 <% include ./header %>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">添加新闻</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+<div class="field">
+<label class="label">* 文章标题</label>
+<p class="control has-icons-left has-icons-right">
+    <input class="input" type="email" placeholder="Email">
+    <span class="icon is-small is-left">
+      <i class="fa fa-pencil"></i>
+    </span>
+  </p>
+</div>
+<div class="field">
+  <label class="label">文章分类</label>
+  <p class="control has-icons-left">
+    <span class="select">
+      <select>
+        <option selected>Country</option>
+        <option>Select dropdown</option>
+        <option>With options</option>
+      </select>
+    </span>
+    <span class="icon is-small is-left">
+      <i class="fa fa-tag"></i>
+    </span>
+  </p>
+</div>			
+		<div class="field">
+		<label class="label">文章内容</label>
+		<div class="control">
+		<textarea class="textarea" placeholder="请输入文章内容"></textarea>
+		</div>
+		</div>			
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">保存</button>
+      <button class="button">取消</button>
+    </footer>
+  </div>
+</div>
 	<div class="page-area">
 	<% include ./nav %>
 	<div class="pd20">
@@ -6,11 +51,11 @@
 		  <div class="column column is-2">
 		  	<% include ./sideMenu %>	
 		  </div>
-		  <div class="column column is-10">
+		  <div class="column column is-10">		  
 			<% include ./breadcrumb %>
 			<div class="buttons">
 			<a class="button is-primary">添加文章</a>
-			<a class="button is-info">添加分类</a>
+			<a class="button is-info" id="addType">添加分类</a>
 			</div>
 			<table class="table is-hoverable is-fullwidth">
 				<thead>
@@ -49,6 +94,103 @@
 		</div>
 	</div>
 	</div>
+	<script>
+        $(document).ready(function() {
+
+        	//关闭modal
+        	function closeModal(){
+        		$(".modal").remove();
+        	};
+
+        	//添加分类
+        	$("#addType").click(function() {
+
+        		//"添加分类"HTML
+        		var panelContent = 
+        		"<div class='modal is-active'>"+
+        			"<div class='modal-background'></div>"+
+        			"<div class='modal-card'>"+
+        				"<header class='modal-card-head'>"+
+        					"<p class='modal-card-title'>添加分类</p>"+
+        					"<button class='delete closeModal' aria-label='close'></button>"+
+        				"</header>"+
+        				"<section class='modal-card-body'>"+
+        					"<input class='input' type='text' id='typeName' placeholder='分类名'>"+
+        				"</section>"+
+        				"<footer class='modal-card-foot'>"+
+        					"<button class='button is-success' id='addTypeAjax'>添加</button>"+
+        					"<button class='button closeModal'>取消</button>"+
+        				"</footer>"+
+        			"</div>"+
+        		"</div>";
+        		//显示"添加分类"
+        		$("body").append(panelContent);
+        		//关闭按钮事件
+        		$(".closeModal").click(function() {
+        			closeModal()
+        		});
+        		//添加按钮
+        		$("#addTypeAjax").click(function() {
+        			var typeName = $("#typeName").val();
+        			if(typeName==""){
+        				//显示taost，提示不能为空
+			            $.lDialog.iconToast({
+			                title: '分类名不能为空',
+			                icon: 'error',
+			                duration: 2000
+			            })
+        			}else {
+        				//显示sLoadingToast
+			            $.lDialog.sLoadingToast({
+			                title: '加载中',
+			                theme:'default'
+			            })
+        				$.ajax({
+							url: '/addArticleType',
+							type: 'POST',
+							data: {
+								typeName:typeName
+							}
+						})
+        				.done(function(res) {
+        					$.lDialog.hLoadingToast(); //关闭加载框
+        					if(res==201){
+        						//分类已经存在
+					            $.lDialog.iconToast({
+					                title: '分类已经存在',
+					                icon: 'error',
+					                duration: 2000
+					            })
+        					}else if(res==200) {
+        						//分类已经存在
+					            $.lDialog.iconToast({
+					                title: '添加成功',
+					                icon: 'success',
+					                duration: 2000
+					            })
+					            //关闭modal
+					            setTimeout(function(){
+					                closeModal();
+					            },2000)
+					            
+        					}else {
+        						//分类已经存在
+					            $.lDialog.iconToast({
+					                title: '没知错误,请联系管理员',
+					                icon: 'error',
+					                duration: 2000
+					            })
+        					}
+        				})
+        				.fail(function(res) {
+        					console.log(res);
+        				})
+        				
+        			}
+        		});
+        	});
+        });	
+	</script>
 <% include ./footer %>
 
 
