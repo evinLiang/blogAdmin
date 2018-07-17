@@ -12,46 +12,6 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: '登陆' });
 });
 
-//列表页
-router.get('/list', function(req, res, next) {
-  res.render('list', { title: '文章列表' });
-});
-
-//添加分类第一步，判断分类是否已经存在
-router.post('/addArticleType', function(req, res, next) {
-  var modSql = 'select * from articletype WHERE typeName = ?',
-  modSqlParams = [req.body.typeName];
-    //请求是否有这个分类
-    db.selectWhere(modSql,modSqlParams,function(data){
-
-      //判断这个分类是否存在
-      if(data.length !== 0){
-        res.send("201");
-      }else {
-        next();
-      }
-      
-    },function(req){
-      res.send(req);
-    })
-});
-
-//添加分类第二步，分类添加到数据库
-router.post('/addArticleType', function(req, res, next) {
-    var modSql = 'INSERT INTO articletype (typeName) VALUES(?)',
-    modSqlParams = [req.body.typeName];
-    db.Insert(modSql,modSqlParams,function(req){
-      console.log(req);
-      if(req.affectedRows == 1){
-        res.send("200");
-      }else {
-        res.send(req);
-      }
-      
-    })
-    
-});
-
 //站点信息页 get
 router.get('/webInformation', function(req, res, next) {
   

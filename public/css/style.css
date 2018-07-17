@@ -37,12 +37,10 @@ body {
 }
 .nav-panel:hover { color: #fff; }
 
-.is-primary { background: #00d1b2;  }
-.is-info { background: #209cee; }
-.is-danger { background: #ff3860; }
-.is-link { background: #3273dc; }
-.is-success { background: #23d160; }
-.is-warning { background: #ffdd57; color: rgba(0,0,0,0.7); }
+.sideMenu-nav .button:not(:last-child) {
+    margin-right: 0rem;
+    margin-bottom: 0.8rem;
+}
 
 .login {
 	max-width: 300px;
@@ -51,6 +49,11 @@ body {
 
 .login .title {
 	text-align: center;
+}
+
+.articleAddPanle .dangerText {
+	border-color: #ff3860;
+    box-shadow: 0 0 0 0.125em rgba(255,56,96,.25);
 }
 
 @media screen and (max-width: 1120px) {
@@ -63,4 +66,11 @@ body {
     body {
         padding:20px;
     }
+}
+
+@media screen and (max-width: 414px) {
+    .page-area {
+		width: 100%;
+		height: auto;
+	}
 }

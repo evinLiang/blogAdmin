@@ -1,0 +1,116 @@
+<% include ./header %>
+	<div class="page-area">
+	<% include ./nav %>
+	<div class="pd20">
+		<div class="columns">
+		  <div class="column column is-2">
+		  	<% include ./sideMenu %>	
+		  </div>
+		  <div class="column column is-10 articleAddPanle">
+			<% include ./breadcrumb %>
+			<div class="field">
+				<label class="label">* 文章标题</label>
+				<p class="control has-icons-left has-icons-right">
+					<input class="input" type="email" placeholder="文章标题" id="articleTitle">
+					<span class="icon is-small is-left">
+						<i class="fa fa-pencil"></i>
+					</span>
+				</p>
+				<p class="help is-danger" style="display: none;">
+					* 标题不能为空
+				</p>
+			</div>
+			<div class="field">
+				<label class="label">封面图地址</label>
+				<p class="control has-icons-left has-icons-right">
+					<input class="input" type="email" placeholder="封面图地址" id="articleUrl">
+					<span class="icon is-small is-left">
+						<i class="fa fa-photo"></i>
+					</span>
+				</p>
+			</div>
+			<div class="field">
+				<label class="label">文章分类</label>
+				<p class="control has-icons-left">
+					<span class="select">
+					<select id="articleTypeId">
+						<% articleType.forEach(function(item){%>
+						<option value="<%= item.typeId %>"><%= item.typeName %></option>
+						<% }) %>
+					</select>
+					</span>
+					<span class="icon is-small is-left">
+						<i class="fa fa-tag"></i>
+					</span>
+				</p>
+			</div>
+			<div class="field">
+			<label class="label">文章内容</label>
+			<div class="control">
+				<textarea class="textarea" placeholder="文章内容" id="articleContent"></textarea>
+			</div>
+			</div>
+			<div class="field is-grouped">
+				<div class="control">
+					<button id="saveBtn" class="button is-primary">添加</button>
+					<button id="toback" class="button is-default">返回</button>
+				</div>
+			</div>
+		  </div>
+		</div>	
+	</div>
+	</div>
+	<script>
+		
+		var articleTitle = $("#articleTitle"),	//文章标题
+		articleTypeId = $("#articleTypeId"),	//分类id
+		articleContent = $("#articleContent"),	//文章内容
+		articleUrl = $("#articleUrl"),	//封面图
+		titleHelp = $(".help");	//标题提示文章
+
+		//文章标题离开是否为空
+		articleTitle.blur(function(){
+			if($(this).val()==""){
+				$(this).addClass('dangerText');
+				titleHelp.show();
+			}else {
+				$(this).removeClass('dangerText');
+				titleHelp.hide();
+			}
+		});
+		//添加事件
+		$("#saveBtn").click(function(event) {
+			if(articleTitle.val() == ""){
+				//标题不能为空
+	            $.lDialog.iconToast({
+	                title: '标题不能为空',
+	                icon: 'error',
+	                theme:'default',
+	                duration: 2000
+	            })
+	            articleTitle.addClass('dangerText');
+				titleHelp.show();
+	            articleTitle.focus();
+				return;
+			}
+			console.log(articleTypeId.val());
+		});
+
+		//返回按钮
+		$("#toback").click(function(event) {
+			if((articleTitle.val() !== "") || (articleContent.val() !== "") || (articleUrl.val() !== "")){
+				//显示按钮模态框
+	            $.lDialog.btnModal({
+	                title:'温馨提示',
+	                content:'你有信息没有保存！你确认要退出？'
+	            },function(){   //点击确认按钮之后执行
+	                window.location.href="/article"
+	            })
+			}else {
+				window.location.href="/article"
+			}
+		});
+	</script>
+<% include ./footer %>
+
+
