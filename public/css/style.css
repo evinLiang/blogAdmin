@@ -56,6 +56,12 @@ body {
     box-shadow: 0 0 0 0.125em rgba(255,56,96,.25);
 }
 
+/*.editormd-container-mask { z-index: 9999; }*/
+.navbar,
+.control.has-icons-left .icon,
+.control.has-icons-right .icon, .select:not(.is-multiple):not(.is-loading)::after { z-index: inherit;}
+
+
 @media screen and (max-width: 1120px) {
     body {
         padding:20px;

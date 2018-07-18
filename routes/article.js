@@ -1,10 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../modules/db');
+var time = require('../modules/time');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('article', { title: '文章列表' });
+
+  //获取所有文章
+  db.selectAll('SELECT * from  articleList INNER JOIN articleType ON articleList.typeId=articleType.typeId',function(data){
+    console.log(data);
+    res.render('Article', { title: '文章列表', articleList: data });
+  },function(req){
+    res.send(req);
+  })
+
+
 });
 
 /* 添加文章get */
@@ -17,6 +27,23 @@ router.get('/add', function(req, res, next) {
   },function(req){
     res.send(req);
   })
+
+});
+
+/* 添加文章post */
+router.post('/add', function(req, res, next) {
+  var datetime = time.getNowFormatDate();
+  var modSql = 'INSERT INTO articleList (title,typeId,imgUrl,content,click,datetime) VALUES(?,?,?,?,?,?)',
+  modSqlParams = [req.body.articleTitle,req.body.articleTypeId,req.body.articleUrl,0,req.body.articleContent,datetime];
+  db.Insert(modSql,modSqlParams,function(req){
+    //console.log(req);
+    if(req.affectedRows == 1){
+      res.send("200");
+    }else {
+      res.send(req);
+    }
+    
+  }) 
 
 });
 

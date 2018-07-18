@@ -25,24 +25,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>aaaa</td>
-						<td>文章分类</td>
-						<td>2018-7-9</td>
-						<td>20</td>
-						<td>admin</td>
-						<td><a class="button is-small is-primary">编辑</a> <a class="button is-small is-danger">删除</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>bbbbbbb</td>
-						<td>文章分类</td>
-						<td>2018-7-9</td>
-						<td>50</td>
-						<td>admin</td>
-						<td><a class="button is-small is-primary">编辑</a> <a class="button is-small is-danger">删除</a></td>
-					</tr>
+					<% articleList.forEach(function(item){%>
+						<tr>
+							<td><%= item.id %></td>
+							<td><%= item.title %></td>
+							<td><%= item.typeName %></td>
+							<td><%= item.datetime %></td>
+							<td><%= item.click %></td>
+							<td>admin</td>
+							<td><a class="button is-small is-primary">编辑</a> <a class="button is-small is-danger">删除</a></td>
+						</tr>
+					<% }) %>
 				</tbody>
 			</table>
 		  </div>
@@ -51,6 +44,25 @@
 	</div>
 	<script>
         $(document).ready(function() {
+
+   //      	function getNowFormatDate() {
+			//     var date = new Date();
+			//     var seperator1 = "-";
+			//     var seperator2 = ":";
+			//     var month = date.getMonth() + 1;
+			//     var strDate = date.getDate();
+			//     if (month >= 1 && month <= 9) {
+			//         month = "0" + month;
+			//     }
+			//     if (strDate >= 0 && strDate <= 9) {
+			//         strDate = "0" + strDate;
+			//     }
+			//     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+			//             + " " + date.getHours() + seperator2 + date.getMinutes()
+			//             + seperator2 + date.getSeconds();
+			//     return currentdate;
+			// }
+   //      	console.log(getNowFormatDate());
 
         	//关闭modal
         	function closeModal(){
