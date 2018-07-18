@@ -30,10 +30,13 @@
 							<td><%= item.id %></td>
 							<td><%= item.title %></td>
 							<td><%= item.typeName %></td>
-							<td><%= item.datetime %></td>
+							<td class="datetime"><%= item.datetime %></td>
 							<td><%= item.click %></td>
 							<td>admin</td>
-							<td><a class="button is-small is-primary">编辑</a> <a class="button is-small is-danger">删除</a></td>
+							<td>
+								<a class="button is-small is-primary" href="/article/updata/<%= item.id %>">编辑</a> 
+								<a class="button is-small is-danger">删除</a>
+							</td>
 						</tr>
 					<% }) %>
 				</tbody>
@@ -43,26 +46,16 @@
 	</div>
 	</div>
 	<script>
+
         $(document).ready(function() {
 
-   //      	function getNowFormatDate() {
-			//     var date = new Date();
-			//     var seperator1 = "-";
-			//     var seperator2 = ":";
-			//     var month = date.getMonth() + 1;
-			//     var strDate = date.getDate();
-			//     if (month >= 1 && month <= 9) {
-			//         month = "0" + month;
-			//     }
-			//     if (strDate >= 0 && strDate <= 9) {
-			//         strDate = "0" + strDate;
-			//     }
-			//     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-			//             + " " + date.getHours() + seperator2 + date.getMinutes()
-			//             + seperator2 + date.getSeconds();
-			//     return currentdate;
-			// }
-   //      	console.log(getNowFormatDate());
+        	
+
+
+
+ // var date = new Date('Thu May 12 2017 08:00:00 GMT+0800 (中国标准时间)');  
+ //    date_value=date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+ //    console.log(date_value);
 
         	//关闭modal
         	function closeModal(){
@@ -90,14 +83,24 @@
         				"</footer>"+
         			"</div>"+
         		"</div>";
+
         		//显示"添加分类"
         		$("body").append(panelContent);
+        		
         		//input默认选中
         		$("#typeName").focus();
+        		
         		//关闭按钮事件
         		$(".closeModal").click(function() {
         			closeModal()
         		});
+
+        		//编辑数据
+        		$("#updataBtn").click(function(event) {
+        			var id = $(this).data("id");
+        			console.log(id);
+        		});
+
         		//添加按钮
         		$("#addTypeAjax").click(function() {
         			var typeName = $("#typeName").val();

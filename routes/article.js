@@ -47,6 +47,23 @@ router.post('/add', function(req, res, next) {
 
 });
 
+
+// 更新文章
+router.get('/updata/:id', function (req, res, next) {
+
+  var modSql = 'select * from articleList WHERE id = ?',
+  modSqlParams = [req.params.id];
+    //请求是否有这个分类
+    db.selectWhere(modSql,modSqlParams,function(data){
+        console.log(data);
+        res.render('updataArticle', { title: '更新文章',articleDetails: data[0] });
+    },function(req){
+      res.send(req);
+    })
+
+
+});
+
 //添加分类第一步，判断分类是否已经存在
 router.post('/addArticleType', function(req, res, next) {
   var modSql = 'select * from articletype WHERE typeName = ?',
