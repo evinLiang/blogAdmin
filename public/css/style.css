@@ -61,6 +61,12 @@ body {
 .control.has-icons-left .icon,
 .control.has-icons-right .icon, .select:not(.is-multiple):not(.is-loading)::after { z-index: inherit;}
 
+.oneLine {
+	white-space: nowrap;
+	overflow: hidden; 
+	text-overflow:ellipsis;
+}
+
 
 @media screen and (max-width: 1120px) {
     body {

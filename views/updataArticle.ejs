@@ -35,7 +35,13 @@
 				<p class="control has-icons-left">
 					<span class="select">
 					<select id="articleTypeId">
-
+						<% articleType.forEach(function(item){%>
+							<% if (item.typeId == articleDetails.typeId) { %> 
+								<option value="<%= item.typeId %>" selected="selected"><%= item.typeName %></option>
+							<% }else { %>
+								<option value="<%= item.typeId %>"><%= item.typeName %></option>
+							<% } %>
+						<% }) %>
 					</select>
 					</span>
 					<span class="icon is-small is-left">
@@ -46,12 +52,10 @@
 			<div class="field">
 				<label class="label">文章内容</label>
 				<div class="control" id="test-editormd">
-					<textarea class="textarea" placeholder="文章内容" id="articleContent" style="display:none;">
-						<%= articleDetails.content %>
-					</textarea>
+					<textarea class="textarea" placeholder="文章内容" id="articleContent" style="display:none;"><%= articleDetails.content %></textarea>
 				</div>
 			</div>
-				<button id="saveBtn" class="button is-primary" style="position: inherit; z-index:inherit">添加</button>
+				<button id="saveBtn" class="button is-primary" style="position: inherit; z-index:inherit">更新</button>
 				<button id="toback" class="button is-default" style="position: inherit; z-index:inherit">返回</button>
 		  </div>
 		</div>	
@@ -104,26 +108,27 @@
                 title: '请求中',
                 theme:'default'
             });
-            return;
 			$.ajax({
-				url: '/article/add',
+				url: '/article/updata',
 				type: 'post',
 				data: {
 					articleTitle: articleTitle.val(),
 					articleTypeId: articleTypeId.val(),
 					articleUrl: articleUrl.val(),
-					articleContent: articleContent.val()
+					articleContent: articleContent.val(),
+					articleId:<%= articleDetails.id %>
 				},
 			})
 			.done(function(res) {
 				console.log(res);
 				$.lDialog.hLoadingToast() //关闭sLoadingToast
-				//添加成功，是否继续添加或者返回列表页
-	            $.lDialog.iconToast({
-	                title: '更新成功',
-	                duration: 2000
+				//添加成功，是否继续修改或者返回列表页
+	            $.lDialog.btnModal({
+	                title:'温馨提示',
+	                content:'更新成功，是否返回列表页'
+	            },function(){   //点击确认按钮之后执行
+	                window.location.href="/article"
 	            })
-	            window.location.href="/article"
 			})
 			.fail(function(res) {
 				console.log(res);

@@ -26,16 +26,16 @@
 				</thead>
 				<tbody>
 					<% articleList.forEach(function(item){%>
-						<tr>
+						<tr id="article-<%= item.id %>">
 							<td><%= item.id %></td>
-							<td><%= item.title %></td>
+							<td class="oneLine"><%= item.title %></td>
 							<td><%= item.typeName %></td>
 							<td class="datetime"><%= item.datetime %></td>
 							<td><%= item.click %></td>
 							<td>admin</td>
 							<td>
 								<a class="button is-small is-primary" href="/article/updata/<%= item.id %>">编辑</a> 
-								<a class="button is-small is-danger">删除</a>
+								<a class="button is-small is-danger delBtn" data-id="<%= item.id %>" data-title="<%= item.title %>">删除</a>
 							</td>
 						</tr>
 					<% }) %>
@@ -49,13 +49,35 @@
 
         $(document).ready(function() {
 
-        	
+        	$(".delBtn").click(function(event) {
+        		var id = $(this).data("id"),
+        		title = $(this).data("title");
+        		//提醒是否删除
+	            $.lDialog.btnModal({
+	                title:'温馨提示',
+	                content:'你确定要删除《'+title+'》这篇文章？'
+	            },function(){   //点击确认按钮之后执行
 
-
-
- // var date = new Date('Thu May 12 2017 08:00:00 GMT+0800 (中国标准时间)');  
- //    date_value=date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
- //    console.log(date_value);
+	                $.ajax({
+	                	url: '/article/del',
+	                	type: 'post',
+	                	data: {id: id},
+	                })
+	                .done(function(res) {
+	                	//删除成功提示
+			            $.lDialog.iconToast({
+			                title: '删除成功',
+			                icon: 'success',
+			                duration: 2000
+			            })
+	                	$("#article-"+id).remove();
+	                })
+	                .fail(function(res) {
+	                	console.log(res);
+	                })
+	                
+	            })
+        	});
 
         	//关闭modal
         	function closeModal(){

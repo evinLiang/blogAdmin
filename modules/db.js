@@ -77,6 +77,42 @@ module.exports = {
 		});
 	},
 
+	//删除数据
+	delect:function(sqllan,SqlParams,success,error){
+
+		//每次使用的时候需要创建链接，数据操作完成之后要关闭连接
+		var connection = mysql.createConnection(databaseConfig);
+
+		//数据库是否链接成功
+		connection.connect(function(err){
+			if(err){
+				error("数据库连接失败："+err);
+				return;
+			}
+		});
+		var sql = sqllan;
+		if(!sql) return;
+
+		//删除数据
+		connection.query(sql,SqlParams,function(err, result){
+			if(err){
+				//console.log(err);
+				error("数据库查询失败："+err);
+				return
+			}
+			success(result)
+		});
+
+		//关闭数据库
+		connection.end(function(err){
+			if(err){
+				return
+			}else {
+				console.log('关闭连接');
+			}
+		});
+	},
+
 	//按条件查询数据
 	selectWhere:function(sqllan,SqlParams,success,error){
 
