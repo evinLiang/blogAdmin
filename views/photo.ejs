@@ -8,11 +8,58 @@
 			  </div>
 			  <div class="column column is-10">
 				<% include ./breadcrumb %>
-			  	<%= title%>
+			  	<div class="field">
+				  <div class="file is-warning is-boxed">
+				    <label class="file-label" style="flex:1">
+				      <input class="file-input" type="file" name="resume" accept="image/*" id="idFile">
+				      <span class="file-cta">
+				        <span class="file-icon">
+				          <i class="fa fa-cloud-upload"></i>
+				        </span>
+				        <span class="file-label">
+				          上传文件…
+				        </span>
+				      </span>
+				    </label>
+				  </div>
+				</div>
+
 			  </div>
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+           $("#idFile").change(function(){
+			
+	// 			var data = new FormData();
+	// 　　　var files = $("#idFile")[0].files;
+ //        if(files){
+ //        	data.append("file", files[0]);
+	//         data.append("CompanyPicAddress","");
+	//         // data.append("CompanyNameCN",$('#CompanyNameCN').textbox("getValue"));
+	//         // data.append("CompanyNameEN",$('#CompanyNameEN').textbox("getValue"));
+	//     }
+	var formData = new FormData();
+ var fileObj = document.getElementById("idFile").files[0];
+ formData.append("fulAvatar", fileObj);
+        $.ajax({
+        	type: 'post',
+        	dataType: 'json',
+        	url:'/photo/add',
+        	data : formData,
+        	contentType: false,
+        	processData: false,
+        	success : function (data, textStatus){  		
+        	},
+        	error:function(XMLHttpRequest, textStatus, errorThrown){
+        		
+        	}
+        });
+        		
+           })
+		})
+	</script>
 <% include ./footer %>
 
 
