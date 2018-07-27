@@ -18,6 +18,7 @@ body {
 .pd20 { padding: 20px; }
 .w100 { width: 100%; }
 .ml-5 { margin-left: 5px; }
+.mb-20 { margin-bottom: 20px; }
 
 .page-area .breadcrumb {
 	margin-bottom: 20px;
@@ -67,6 +68,47 @@ body {
 	text-overflow:ellipsis;
 }
 
+.cus-p { cursor: pointer; }
+
+.imgPanel {
+	position: fixed;
+	z-index: 999;
+	right: 0px;
+	top: 0px;
+	width: 200px;
+	height: 100%;
+	background: #fff;
+	box-sizing: border-box;
+	padding: 16px;
+	overflow: auto;
+	transition: all 1s ease-in-out;
+}
+.imgPanel.imgPanelHide {
+	transform: translateX(200px);
+}
+.switchBtn {
+	position: fixed;
+	z-index: 1000;
+	right: 200px;
+	top: 50%;
+	transform: translateY(-50%);
+	width:45px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	color: #fff;
+	cursor: pointer;
+	background: #00d1b2;
+	border-radius: 50% 0px 0px 50%;
+	padding-left: 5px;
+	transition: all 1s ease-in-out;
+}
+.switchBtn.switchBtnHide {
+	right: 0px;
+}
+
+.col-4 { width: calc((100% - 45px)/4); float: left; margin-right: 15px; }
+.col-4:nth-child(5n) { margin-right: 0px; }
 
 @media screen and (max-width: 1120px) {
     body {

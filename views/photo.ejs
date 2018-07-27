@@ -8,56 +8,109 @@
 			  </div>
 			  <div class="column column is-10">
 				<% include ./breadcrumb %>
-			  	<div class="field">
+
+				<div class="field">
 				  <div class="file is-warning is-boxed">
-				    <label class="file-label" style="flex:1">
-				      <input class="file-input" type="file" name="resume" accept="image/*" id="idFile">
+				    <label class="file-label w100">
+				      <input class="file-input" type="file" name="resume" id="file1">
 				      <span class="file-cta">
 				        <span class="file-icon">
-				          <i class="fa fa-cloud-upload"></i>
+				          <i class="fa fa-upload"></i>
 				        </span>
 				        <span class="file-label">
-				          上传文件…
+				          上传图片
 				        </span>
 				      </span>
 				    </label>
 				  </div>
+				</div>
+				<!-- 上传按钮 -->
+				<hr>
+
+				<div id="cardList">
+					<script type="text/html" id="cardTpl">
+					<h4 class="mb-20">所有图片 {{data}}</h4>
+					{{each}}
+					<div class="col-4">
+						<div class="card mb-20">
+							<div class="card-image">
+								<figure class="image">
+									<img src="{{$value.imgUrl}}" alt="Placeholder image">
+								</figure>
+							</div>
+							<footer class="card-footer">
+								<p class="card-footer-item"><span class="cus-p">删除</span></p>
+								<p class="card-footer-item"><span class="cus-p">复制</span></p>
+							</footer>
+						</div>
+					</div>
+					{{/each}}
+					</script>
 				</div>
 
 			  </div>
 			</div>
 		</div>
 	</div>
+	<script src="/js/art-template.min.js"></script>
 	<script>
 		$(document).ready(function() {
-           $("#idFile").change(function(){
-			
-	// 			var data = new FormData();
-	// 　　　var files = $("#idFile")[0].files;
- //        if(files){
- //        	data.append("file", files[0]);
-	//         data.append("CompanyPicAddress","");
-	//         // data.append("CompanyNameCN",$('#CompanyNameCN').textbox("getValue"));
-	//         // data.append("CompanyNameEN",$('#CompanyNameEN').textbox("getValue"));
-	//     }
-	var formData = new FormData();
- var fileObj = document.getElementById("idFile").files[0];
- formData.append("fulAvatar", fileObj);
-        $.ajax({
-        	type: 'post',
-        	dataType: 'json',
-        	url:'/photo/add',
-        	data : formData,
-        	contentType: false,
-        	processData: false,
-        	success : function (data, textStatus){  		
-        	},
-        	error:function(XMLHttpRequest, textStatus, errorThrown){
-        		
-        	}
-        });
-        		
-           })
+
+			//定义获取图库函数
+	        function getImg(){
+	        	$.ajax({
+	        		url: '/photo/get'
+	        	})
+	        	.done(function(data) {
+	        		var cardTpl = template("cardTpl",data);
+					$("#cardList").html(cardTpl)
+	        	})
+	        	.fail(function(res) {
+	        		console.log(res);
+	        	})
+	        	
+	        }
+
+	        getImg();	//获取图库
+
+			$("#file1").change(function(){
+				//请求中
+				$.lDialog.sLoadingToast({
+	                title: '请求中',
+	                theme:'default'
+	            });
+			    var formData = new FormData();
+			    formData.append("myfile", document.getElementById("file1").files[0]);   
+			    $.ajax({
+			        url: "/photo/add",
+			        type: "POST",
+			        data: formData,
+			        /**
+			        *必须false才会自动加上正确的Content-Type
+			        */
+			        contentType: false,
+			        /**
+			        * 必须false才会避开jQuery对 formdata 的默认处理
+			        * XMLHttpRequest会对 formdata 进行正确的处理
+			        */
+			        processData: false,
+			        success: function (data) {
+			        	$.lDialog.hLoadingToast() //关闭sLoadingToast
+			        	if(data == 200){
+			        		$.lDialog.iconToast({
+							  title: '上传成功',	//toast标题,默认"我是一个iconToast"
+							  icon: 'success',	//toast-icon类型，默认为"success"
+							  theme:'default',	//主题色，默认为default	
+							  duration: 2000	//显示时间，默认为2500秒
+							})
+							getImg();
+			        	}
+			        },
+			        error: function (res) {
+			            console.log(res);
+			        }
+			    });
+			});
 		})
 	</script>
 <% include ./footer %>

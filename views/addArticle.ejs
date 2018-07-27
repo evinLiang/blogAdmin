@@ -1,5 +1,6 @@
 <% include ./header %>
 <link rel='stylesheet' href='/css/editormd.min.css' />
+	<% include ./sideImg %>
 	<div class="page-area">
 	<% include ./nav %>
 	<div class="pd20">
@@ -58,14 +59,74 @@
 	</div>
 	</div>
 	<script src="/js/editormd.min.js"></script>
+	<script src="/js/art-template.min.js"></script>
 	<script>
         $(function() {
-            var testEditor = editormd("test-editormd", {
-                width   : "100%",
-                height  : 640,
-                syncScrolling : "single",
-                path    : "/lib/"
+
+        //定义获取图库函数
+        function getImg(){
+        	$.ajax({
+        		url: '/photo/get'
+        	})
+        	.done(function(data) {
+        		var cardTpl = template("cardTpl",data);
+				$("#cardList").html(cardTpl)
+        	})
+        	.fail(function(res) {
+        		console.log(res);
+        	})
+        	
+        }
+
+        getImg();	//获取图库
+
+
+		$("#file1").change(function(){
+			//请求中
+			$.lDialog.sLoadingToast({
+                title: '请求中',
+                theme:'default'
             });
+		    var formData = new FormData();
+		    formData.append("myfile", document.getElementById("file1").files[0]);   
+		    $.ajax({
+		        url: "/photo/add",
+		        type: "POST",
+		        data: formData,
+		        /**
+		        *必须false才会自动加上正确的Content-Type
+		        */
+		        contentType: false,
+		        /**
+		        * 必须false才会避开jQuery对 formdata 的默认处理
+		        * XMLHttpRequest会对 formdata 进行正确的处理
+		        */
+		        processData: false,
+		        success: function (data) {
+		        	$.lDialog.hLoadingToast() //关闭sLoadingToast
+		        	if(data == 200){
+		        		$.lDialog.iconToast({
+						  title: '上传成功',	//toast标题,默认"我是一个iconToast"
+						  icon: 'success',	//toast-icon类型，默认为"success"
+						  theme:'default',	//主题色，默认为default	
+						  duration: 2000	//显示时间，默认为2500秒
+						})
+						getImg();
+		        	}
+		        },
+		        error: function (res) {
+		            console.log(res);
+		        }
+		    });
+		});        
+        
+		//通用部分
+
+        var testEditor = editormd("test-editormd", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "/lib/"
         });
 		var articleTitle = $("#articleTitle"),	//文章标题
 		articleTypeId = $("#articleTypeId"),	//分类id
@@ -144,6 +205,7 @@
 				window.location.href="/article"
 			}
 		});
+	});
 	</script>
 <% include ./footer %>
 
