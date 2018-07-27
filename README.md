@@ -15,6 +15,14 @@ module.exports = {
 	port:端口号
 }
 
+# 阿里云oss信息不公开，所以要建一个oss信息表，文件名为ossConfig.js,放在modules文件夹下
+module.exports = {
+	region: 'oss-cn-hangzhou',	//oss区域
+  	accessKeyId: 'accessKeyId',
+  	accessKeySecret: 'accessKeySecret',
+  	bucket: 'bucket'
+}
+
 # 拉取代码
 https://github.com/evinLiang/blogAdmin.git
 
