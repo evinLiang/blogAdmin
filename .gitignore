@@ -1,3 +1,4 @@
 node_modules/
 modules/databaseConfig.js
 modules/ossConfig.js
+*/.DS_Store
