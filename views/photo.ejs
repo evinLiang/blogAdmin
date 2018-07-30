@@ -40,7 +40,7 @@
 							</div>
 							<footer class="card-footer">
 								<p class="card-footer-item"><span class="cus-p">删除</span></p>
-								<p class="card-footer-item"><span class="cus-p">复制</span></p>
+								<p class="card-footer-item"><span class="cus-p copeUrl" data-clipboard-text="{{$value.imgUrl}}">复制</span></p>
 							</footer>
 						</div>
 					</div>
@@ -52,6 +52,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="/js/clipboard.min.js"></script>
 	<script src="/js/art-template.min.js"></script>
 	<script>
 		$(document).ready(function() {
@@ -63,7 +64,24 @@
 	        	})
 	        	.done(function(data) {
 	        		var cardTpl = template("cardTpl",data);
-					$("#cardList").html(cardTpl)
+					$("#cardList").html(cardTpl);
+
+					//复制url
+					var clipboard = new ClipboardJS('.copeUrl');
+				    clipboard.on('success', function(e) {
+				        $.lDialog.iconToast({
+						  title: '复制成功',	//toast标题,默认"我是一个iconToast"
+						  icon: 'success',	//toast-icon类型，默认为"success"	
+						  duration: 2000	//显示时间，默认为2500秒
+						})
+				    });
+				    clipboard.on('error', function(e) {
+				        $.lDialog.iconToast({
+						  title: '复制失败',	//toast标题,默认"我是一个iconToast"
+						  icon: 'error',	//toast-icon类型，默认为"success"	
+						  duration: 2000	//显示时间，默认为2500秒
+						})
+				    });
 	        	})
 	        	.fail(function(res) {
 	        		console.log(res);
